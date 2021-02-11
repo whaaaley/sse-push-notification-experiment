@@ -1,0 +1,82 @@
+<html>
+  <style>
+    body {
+      display: flex;
+      color: white;
+      background: black;
+    }
+
+    div {
+      margin: auto;
+    }
+  </style>
+  <script>
+
+    // const permission = await window.Notification.requestPermission();
+//
+// reg.pushManager.subscribe({  })
+//   .then(sub => {
+//     console.log(sub.subscriptionId)
+//     console.log(sub.endpoint)
+//   })
+//   .catch(err => console.log('SW error subscribing'))
+  </script>
+  <script>
+    const ask = reg => {
+      Notification.requestPermission()
+        .then(data => {
+          console.log(data)
+
+          if (data === 'granted') {
+            navigator.serviceWorker.ready
+              .then(reg => {
+                console.log(reg)
+
+                reg.showNotification('Hello World!', {
+                  body: 'Yooooo',
+                  tag: 'hello-world'
+                })
+              })
+          }
+        })
+        .catch(err => console.log('Error asking for permission', err))
+    }
+
+    //
+    //
+    //
+
+    const register = () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => {
+          console.log('SW successfully registered')
+          // ask(reg)
+        })
+        .catch(err => console.log('SW failed to register', err))
+    }
+
+    if ('serviceWorker' in navigator) register()
+  </script>
+  <script>
+    // const source = new EventSource('/sse')
+    //
+    // source.onmessage = body => {
+    //   switch (body.data) {
+    //     case 'connect':
+    //       console.log('Connected to SSE event source')
+    //       break
+    //     case 'push':
+    //       console.log('Send a push notification')
+    //       break
+    //     default:
+    //       console.log('Heartbeat from automatic reload', new Date())
+    //   }
+    // }
+  </script>
+  <body>
+    <div>
+      <h1>hello, welcome.</h1>
+      <h3>http2 SSE service worker push notification demo</h3>
+    </div>
+  </body>
+</html>
